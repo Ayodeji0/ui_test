@@ -32,4 +32,33 @@ export class SignInPage {
 
 
 
+/*
 
+THIS IS FOR PERSONAL REFERENCE WHICH IS ANOTHER METHOD TO SETUP THE SIGNIN PAGE BY REDUCING THE CODE
+ readonly page: Page;
+ readonly usernameField: Locator;
+ readonly passwordField: Locator;
+ readonly loginButton: Locator;
+
+constructor(page: Page) {
+    this.page = page;
+    this.usernameField = page.locator('#user-name');
+    this.passwordField = page.locator('[data-test="password"]');
+    this.loginButton = page.locator('[data-test="login-button"]');
+}
+
+
+async login(username: string, password: string): Promise<void> {
+    await this.usernameField.fill(username);
+    await this.passwordField.fill(password);
+    await this.loginButton.click();
+}
+
+await this.page.click('text=Sign in');
+await this.page.fill('[data-testid=input]', email);
+await this.page.click('text=Continue');
+await this.page.fill('[data-testid=input]', password);
+await this.page.click('button[type="submit"]');
+}
+
+*/
