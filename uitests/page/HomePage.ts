@@ -6,6 +6,7 @@ export class HomePage {
   constructor(page: Page) {
     this.page = page;
   }
+/*  THE HOME PAGE WILL BE REFERENCED IN ALL THE TEST SUITES  TRY CATCH WAS USED BECAUSE THE PAGE WAS FAILING INITIALLY*/
 
   async navigateToScoresAndFixtures(): Promise<void> {
     const maxRetries = 3;
