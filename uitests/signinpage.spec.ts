@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { HomePage, SignInPage } from "./page";
-
+import { faker } from '@faker-js/faker';
+import testdata from './data/TestaData.json'
 //
 test("Invalid Email Test", async ({ page }) => {
   const homePage = new HomePage(page);
@@ -8,7 +9,8 @@ test("Invalid Email Test", async ({ page }) => {
   await homePage.clickSignInLink();
   // ACTIONS TO EXECUTE TEST
   const signInPage = new SignInPage(page);
-  await signInPage.fillUsername("invalidemail@example.com");
+  const randomEmail = faker.internet.email()
+  await signInPage.fillUsername(randomEmail);
   await signInPage.clickContinue();
 
   // WAITING ERROR MESSAGE ELEMENT
@@ -38,8 +40,7 @@ test("Empty Email Field Test", async ({ page }) => {
     { timeout: 20000 }
   );
   const actualErrorMessage = await errorMessageElement.textContent();
-  const expectedErrorMessage =
-    "Something's missing. Please check and try again.";
+  const expectedErrorMessage = "Something's missing. Please check and try again.";
 
   //  Assertion to confirm the actual error message on the page is as expected
   expect(actualErrorMessage).toEqual(expectedErrorMessage);
@@ -51,7 +52,8 @@ test("Special Character Email Field Test", async ({ page }) => {
   await homePage.clickSignInLink();
   // ACTIONS TO EXECUTE TEST
   const signInPage = new SignInPage(page);
-  await signInPage.fillUsername("kOZGMPttfnp001@");
+  const specialsymbols =faker.string.symbol(10)
+  await signInPage.fillUsername("Katwhwbw@h");
   await signInPage.clickContinue();
 
   // WAITING ERROR MESSAGE ELEMENT
@@ -60,8 +62,7 @@ test("Special Character Email Field Test", async ({ page }) => {
     { timeout: 20000 }
   );
   const actualErrorMessage = await errorMessageElement.textContent();
-  const expectedErrorMessage =
-    "Sorry, that email doesn’t look right. Please check it's a proper email.";
+  const expectedErrorMessage = "Sorry, that email doesn’t look right. Please check it's a proper email.";
 
   //  Assertion to confirm the actual error message on the page is as expected
   expect(actualErrorMessage).toEqual(expectedErrorMessage);
@@ -73,9 +74,10 @@ test("Empty Password Field Test", async ({ page }) => {
   await homePage.clickSignInLink();
 
   const signInPage = new SignInPage(page);
-  await signInPage.fillUsername("symphony");
+  const username = faker.person.firstName();
+  await signInPage.fillUsername(username);
   await signInPage.clickContinue();
-  await signInPage.fillPassword("");
+  await signInPage.fillPassword('');
   await signInPage.clickSignInButton();
 
   try {
@@ -118,9 +120,11 @@ test("Short Password Field Test", async ({ page }) => {
   await homePage.clickSignInLink();
   // ACTIONS TO EXECUTE TEST
   const signInPage = new SignInPage(page);
-  await signInPage.fillUsername("symphony");
+  const username = faker.person.firstName();
+  const password = faker.internet.password({ length: 3})
+  await signInPage.fillUsername(username);
   await signInPage.clickContinue();
-  await signInPage.fillPassword("abc");
+  await signInPage.fillPassword(password);
   await signInPage.clickSignInButton();
   try {
     // Wait for error message element
@@ -151,9 +155,11 @@ test("Invalid Password Test", async ({ page }) => {
   await homePage.clickSignInLink();
   // ACTIONS TO EXECUTE TEST
   const signInPage = new SignInPage(page);
-  await signInPage.fillUsername("symphony");
+  const username = faker.person.firstName();
+   const password = faker.internet.password({ length: 10 })
+  await signInPage.fillUsername(username);
   await signInPage.clickContinue();
-  await signInPage.fillPassword("password123");
+  await signInPage.fillPassword(password);
   await signInPage.clickSignInButton();
 
   try {
