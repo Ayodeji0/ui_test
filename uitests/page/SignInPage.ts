@@ -17,7 +17,7 @@ export class SignInPage {
     }
 
     async fillPassword(password: string) {
-        await this.page.fill('#password-input', password);
+        await this.page.getByTestId('input',).fill(password);
     }
 
     async clickSignInButton() {

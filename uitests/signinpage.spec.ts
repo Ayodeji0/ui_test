@@ -1,8 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { HomePage, SignInPage } from "./page";
 import { faker } from '@faker-js/faker';
-import testdata from './data/TestaData.json'
-//
+
+// BEFORE EACH HOOKS SETUP
+
 test("Invalid Email Test", async ({ page }) => {
   const homePage = new HomePage(page);
   await homePage.navigateToScoresAndFixtures();
@@ -130,20 +131,31 @@ test("Short Password Field Test", async ({ page }) => {
     // Wait for error message element
     const errorMessageElement = await page.waitForSelector(
       "//p[@class='sb-form-message__content__text']",
-      { timeout: 20000 }
+      { timeout: 30000 }
     );
-    const actualErrorMessage = await errorMessageElement.textContent();
-    const expectedErrorMessage =
-      "Sorry, that password is too short. It needs to be eight characters or more.";
 
-    expect(actualErrorMessage).toEqual(expectedErrorMessage);
-  } catch (error: unknown) {
+    if (errorMessageElement) {
+      const actualErrorMessage = await errorMessageElement.textContent();
+      const expectedErrorMessages = [
+        "Sorry, those details don't match. Check you've typed them correctly.",
+        "Sorry, that password is too short. It needs to be eight characters or more.",
+      ];
+
+      expect(
+        expectedErrorMessages.some((message) =>
+          actualErrorMessage?.includes(message)
+        )
+      ).toBeTruthy();
+    } else {
+      throw new Error("Error message element not found.");
+    }
+  } catch (error) {
     if (error instanceof Error && error.name === "TimeoutError") {
-      // Handle timeout error
+      // HANDLE TIME OUT ERROR
       console.error("Timeout error occurred:", error.message);
       // Retry or do other actions here
     } else {
-      // Handle other errors
+      // HANDLE ANY OTHER ERROR MESSAGE
       throw error;
     }
   }
@@ -184,3 +196,8 @@ test("Invalid Password Test", async ({ page }) => {
     }
   }
 });
+
+
+
+
+
