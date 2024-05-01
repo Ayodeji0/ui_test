@@ -6,7 +6,7 @@ export class HomePage {
     constructor(page: Page) {
         this.page = page;
     }
-
+//  TRY CATCH TO CATCH NAVIAGTION ERROR IS WAS USED BECAUSE ON ONE TRY IT WAS THROWING TIME OUT ERROR
     async navigateToScoresAndFixtures(): Promise<void> {
       const maxRetries = 3;
       let retries = 0;
@@ -20,7 +20,7 @@ export class HomePage {
         }
       }
     }
-
+// THIS IS TO CLICK ON THE SIGN IN BUTTON AFTER LANDING ON THE BBC URL
     async clickSignInLink() {
       await this.page.getByRole('link', { name: 'Sign in' }).click();;
     }
