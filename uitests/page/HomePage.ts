@@ -24,4 +24,8 @@ export class HomePage {
     async clickSignInLink() {
       await this.page.getByRole('link', { name: 'Sign in' }).click();;
     }
+
+    async isPageLoaded() {
+      await this.page.waitForSelector('.sp-c-fixture__wrapper');
+  }
 }
