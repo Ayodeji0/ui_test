@@ -8,7 +8,7 @@ export class SignInPage {
         this.page = page;
     }
 //  EACH LOCATOR HAVE THEIR FUNCTIONS SEPARATELY 
-    async fillEmail(email: string) {
+    async fillUsername(email: string) {
         await this.page.fill('[data-testid="input"]', email);
     }
 
