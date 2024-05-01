@@ -20,71 +20,80 @@ test('Invalid Email Test', async ({ page }) => {
 
     expect(actualErrorMessage).toEqual(expectedErrorMessage);
 });
-test('Invalid Email Test', async ({ page }) => {
+
+test('Empty Email Field Test', async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.navigateToScoresAndFixtures();
     await homePage.clickSignInLink();
 
     const signInPage = new SignInPage(page);
-    await signInPage.fillEmail('invalidemail@example.com');
+    await signInPage.fillEmail('');
     await signInPage.clickContinue();
 
     // Wait for error message element
     const errorMessageElement = await page.waitForSelector("//p[@class='sb-form-message__content__text']");
     const actualErrorMessage = await errorMessageElement.textContent();
-    const expectedErrorMessage = "We don’t recognise that email or username. You can try again or register for an account";
+    const expectedErrorMessage = "Something's missing. Please check and try again.";
 
     expect(actualErrorMessage).toEqual(expectedErrorMessage);
 });
-test('Invalid Email Test', async ({ page }) => {
+test('Invalid Password Test', async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.navigateToScoresAndFixtures();
     await homePage.clickSignInLink();
 
     const signInPage = new SignInPage(page);
-    await signInPage.fillEmail('invalidemail@example.com');
+    await signInPage.fillEmail('symphony');
     await signInPage.clickContinue();
+    await signInPage.fillPassword('password123')
+    await signInPage.clickSignInButton()
 
     // Wait for error message element
-    const errorMessageElement = await page.waitForSelector("//p[@class='sb-form-message__content__text']");
+    const errorMessageElement = await page.waitForSelector("//p[@class='sb-form-message__content__text']", { timeout: 20000 });
+
     const actualErrorMessage = await errorMessageElement.textContent();
-    const expectedErrorMessage = "We don’t recognise that email or username. You can try again or register for an account";
+    const expectedErrorMessage = "That password isn’t right. You can try again or reset your password";
 
     expect(actualErrorMessage).toEqual(expectedErrorMessage);
 });
-test('Invalid Email Test', async ({ page }) => {
+
+test('Empty Password Field Test', async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.navigateToScoresAndFixtures();
     await homePage.clickSignInLink();
 
     const signInPage = new SignInPage(page);
-    await signInPage.fillEmail('invalidemail@example.com');
+    await signInPage.fillEmail('symphony');
     await signInPage.clickContinue();
+    await signInPage.fillPassword('')
+    await signInPage.clickSignInButton()
 
     // Wait for error message element
-    const errorMessageElement = await page.waitForSelector("//p[@class='sb-form-message__content__text']");
+    const errorMessageElement = await page.waitForSelector("//p[@class='sb-form-message__content__text']", { timeout: 20000 });
     const actualErrorMessage = await errorMessageElement.textContent();
-    const expectedErrorMessage = "We don’t recognise that email or username. You can try again or register for an account";
+    const expectedErrorMessage = "Sorry, those details don't match. Check you've typed them correctly.";
 
     expect(actualErrorMessage).toEqual(expectedErrorMessage);
 });
-test('Invalid Email Test', async ({ page }) => {
+test('Short Password Field Test', async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.navigateToScoresAndFixtures();
     await homePage.clickSignInLink();
 
     const signInPage = new SignInPage(page);
-    await signInPage.fillEmail('invalidemail@example.com');
+    await signInPage.fillEmail('symphony');
     await signInPage.clickContinue();
+    await signInPage.fillPassword('abc')
+    await signInPage.clickSignInButton()
 
     // Wait for error message element
-    const errorMessageElement = await page.waitForSelector("//p[@class='sb-form-message__content__text']");
+    const errorMessageElement = await page.waitForSelector("//p[@class='sb-form-message__content__text']", { timeout: 20000 });
     const actualErrorMessage = await errorMessageElement.textContent();
-    const expectedErrorMessage = "We don’t recognise that email or username. You can try again or register for an account";
+    const expectedErrorMessage = "Sorry, that password is too short. It needs to be eight characters or more.";
 
     expect(actualErrorMessage).toEqual(expectedErrorMessage);
 });
-test('Invalid Email Test', async ({ page }) => {
+test('Special Character Field Test', async ({ page }) => {
     const homePage = new HomePage(page);
     await homePage.navigateToScoresAndFixtures();
     await homePage.clickSignInLink();
