@@ -1,7 +1,7 @@
 
-import { Page } from '@playwright/test';
+import { Page, ElementHandle } from '@playwright/test';
 
-export class SignInPage {
+export class QAPage {
     private page: Page;
 
     constructor(page: Page) {
@@ -23,4 +23,7 @@ export class SignInPage {
     async clickSignInButton() {
         await this.page.getByRole('button', { name: 'Sign in' }).click();
     }
+    async waitForErrorMessage(): Promise<ElementHandle<Element>> {
+        return await this.page.waitForSelector("//p[@class='sb-form-message__content__text']", { timeout: 30000 });
+      }
 }

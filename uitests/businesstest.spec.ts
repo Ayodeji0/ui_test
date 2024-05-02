@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
   businessPage = new BusinessPage(page);
 });
 
-test('Check if there are matches today', async () => {
+test('TEST AS A BUSINESS OWNER', async () => {
   await homePage.navigateToScoresAndFixtures();
   const matchContainers = await homePage.getMatchContainers();
   const today = new Date().toLocaleDateString('en-NG');
