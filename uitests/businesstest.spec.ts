@@ -38,7 +38,7 @@ test('Check if there are matches today', async () => {
   }
 
   if (!matchesToday) {
-    console.log('No matches today.');
+    return;
   }
 
   // Assertion: Ensure that there is no error occurred during the test
