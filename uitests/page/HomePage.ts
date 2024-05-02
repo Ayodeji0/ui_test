@@ -24,8 +24,14 @@ export class HomePage {
     async clickSignInLink() {
       await this.page.getByRole('link', { name: 'Sign in' }).click();;
     }
-
+// THIS IS FOR TEST AS A BUSINESS USER
     async isPageLoaded() {
       await this.page.waitForSelector('.sp-c-fixture__wrapper');
   }
+// THIS IS FOR TEST AS A SPORT READER 
+  async searchFor(query: string) {
+    await this.page.getByRole('link', { name: 'Search BBC' }).click();
+    await this.page.getByPlaceholder('Search the BBC').click();
+    await this.page.getByPlaceholder('Search the BBC').fill(query);
+}
 }
