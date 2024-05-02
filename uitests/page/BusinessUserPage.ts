@@ -1,14 +1,13 @@
-import { Page } from 'playwright';
+import { ElementHandle, Page } from '@playwright/test';
 
 export class BusinessPage {
-    private page: Page;
+  constructor(page: Page) {}
 
-    constructor(page: Page) {
-        this.page = page;
-    }
+  async getMatchDate(matchContainer: ElementHandle) {
+    return await matchContainer.$("//*[@id=\"main-content\"]/section/div/section");
+  }
 
-    async getTeamNames() {
-        await this.page.waitForSelector('.sp-c-fixture__wrapper');
-        return await this.page.$$eval('.sp-c-fixture__team-name', nodes => nodes.map(node => node.textContent?.trim() || ''));
-    }
+  async getTeamNameElements(matchContainer: ElementHandle) {
+    return await matchContainer.$$("//*[@id=\"main-data\"]/div/div[1]");
+  }
 }

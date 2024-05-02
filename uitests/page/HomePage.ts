@@ -24,10 +24,15 @@ export class HomePage {
     async clickSignInLink() {
       await this.page.getByRole('link', { name: 'Sign in' }).click();;
     }
-// THIS IS FOR TEST AS A BUSINESS USER
-    async isPageLoaded() {
-      await this.page.waitForSelector('.sp-c-fixture__wrapper');
+
+
+// THIS IS FOR TEST AS A BUSINESS USER TO LOAD THE WRAPPER FOR THE 
+  async getMatchContainers() {
+    await this.page.waitForSelector("//*[@id=\"main-data\"]/div");
+    return await this.page.$$("//*[@id=\"main-data\"]/div/div[1]");
   }
+
+
 // THIS IS FOR TEST AS A SPORT READER 
   async searchFor(query: string) {
     await this.page.getByRole('link', { name: 'Search BBC' }).click();
